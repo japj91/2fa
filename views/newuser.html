@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<html>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<body>
+
+<form>
+    Username: <input type="text" name="name"><br>
+    password: <input type="text" name="password"><br>
+
+    <div> Please scan the token and enter the text in the input field to your right</div>
+    <img id="aa">
+    <input id="token">
+    <button id="cl"> submit </button>
+</form>
+</body>
+<script>
+
+    var a = document.getElementById("aa");
+    var tok = document.getElementById("token");
+    var button = document.getElementById("cl");
+
+    $.ajax({
+        url: "/sec",
+        type: "post",
+        success: function (resp) {
+            a.src = resp;
+        }
+    })
+
+    button.onclick = function () {
+        console.log(tok.value)
+        $.ajax({
+            url: "/check",
+            type: "post",
+            data: {
+                token: tok.value
+            },
+            success: function (reso) {
+                console.log(reso);
+            }
+        })
+    }
+</script>
+</html>

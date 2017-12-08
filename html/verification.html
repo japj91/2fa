@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<body>
+
+
+Username: <input type="text" id="name"><br>
+password: <input type="text" id="password"><br>
+
+<div> Please scan the token and enter the text in the input field to your right</div>
+<input id="token">
+<button id="btn" type="button"> submit</button>
+<div id="alert"></div>
+
+</body>
+<script>
+
+
+    var tokenValue = document.getElementById("token");
+    var username = document.getElementById("name");
+    var password = document.getElementById("password");
+    var button = document.getElementById("btn");
+    var alert = document.getElementById("alert");
+
+
+    button.onclick = function () {
+        console.log(tokenValue.value);
+        $.ajax({
+            url: "/login-check",
+            type: "post",
+            data: {
+                token: tokenValue.value,
+                name: username.value,
+                password: password.value
+            },
+            success: function (resp) {
+                username.value="";
+                password.value="";
+                tokenValue.value="";
+                alert.innerHTML = resp;
+            }
+        })
+    }
+</script>
+</html>
